@@ -10,7 +10,7 @@
 
 
 function menuInicial(){
-    const menu = parseInt(prompt("1. Agregar ingreso\n2. Agregar gasto\n3. Ver resumen\nSalir"));
+    const menu = parseInt(prompt(" ================ Registro Presupuesto ================\n1. Agregar ingreso\n2. Agregar gasto\n3. Ver resumen\nSalir"));
     return menu
 }
 
@@ -69,6 +69,7 @@ while(continuar){
             monto = parseFloat(prompt("Ingrese el monto del ingreso:"));
             if (isNaN(monto) || monto <= 0) {
                 console.log("Monto de ingreso inválido. Debe ser un número positivo.");
+                alert("Monto de ingreso inválido. Debe ser un número positivo.");
                 break;
             }
             Ingreso(Ingresos, FechasIngresos, monto);
@@ -77,20 +78,21 @@ while(continuar){
             monto = parseFloat(prompt("Ingrese el monto del gasto:"));
             if (isNaN(monto) || monto <= 0) {
                 console.log("Monto de gasto inválido. Debe ser un número positivo.");
+                alert("Monto de gasto inválido. Debe ser un número positivo.");
                 break;
             }
             Gasto(Gastos, FechasGastos, monto);
             break;
         case 3:
-            console.log("======= Resumen =======");
+            console.log("======= 💰 Resumen 💰 =======");
             totalIngresos = Estado(Ingresos, FechasIngresos);
-            console.log(`Total de ingresos: $${totalIngresos}`);
+            console.log(`Total de ingresos 📈: $${totalIngresos}`);
             totalGastos = Estado(Gastos, FechasGastos);
-            console.log(`Total de ingresos: $${totalGastos}`)
+            console.log(`Total de gastos 📉: $${totalGastos}`)
             EstadoPyG(Ingresos, Gastos);
             break;
         default:
-            console.log('Saliendo del programa');
+            console.log('Saliendo del programa 👋🏻');
             continuar = false;
     }
 }
