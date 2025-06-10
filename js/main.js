@@ -10,47 +10,50 @@
 
 
 function menuInicial(){
-    const menu = parseInt(prompt(" ================ Registro Presupuesto ================\n1. Agregar ingreso\n2. Agregar gasto\n3. Ver resumen\nSalir"));
+    const menu = parseInt(prompt("📊 Registro Presupuesto\n1. Agregar ingreso\n2. Agregar gasto\n3. Ver resumen\nSalir"));
     return menu
 }
 
 function Ingreso(arrayIngresos,arrayFechaIngresos, monto){
     arrayIngresos.push(monto);
     arrayFechaIngresos.push(new Date().toLocaleDateString());
-    console.log(`Ingreso agregado: $${monto}`);
+    alert(`Ingreso agregado: $${monto}`);
 }
 
 function Gasto(arrayGastos,arrayFechaGastos, monto){
     arrayGastos.push(monto);
     arrayFechaGastos.push(new Date().toLocaleDateString());
-    console.log(`Gasto agregado: $${monto}`);
+    alert(`Gasto agregado: $${monto}`);
 }
 
-function Estado(arrayMontos, arrayFechas){
+function Estado(arrayMontos, arrayFechas, tipo){
     let total = 0;
+    let mensaje = `======= 📊 Detalle de ${tipo} 📊 =======\n`;
+    mensaje += '\n    Fecha  |   Monto';
     for (let i = 0; i <= arrayMontos.length - 1; i++) {
-        console.log(`${arrayFechas[i]}: $${arrayMontos[i]}`);
+        mensaje += `\n${arrayFechas[i]}: $${arrayMontos[i]}`;
         total += arrayMontos[i];
     }
+    alert(`\n${mensaje}\n\n💸 Total ${tipo}: $${total}`);  
     return total;
 }
-function EstadoPyG(arrayIngresos, arrayGastos){
-    let totalIngresos = 0;
-    let totalGastos = 0;
-
-    for (let i = 0; i < arrayIngresos.length; i++) {
-        totalIngresos += arrayIngresos[i];
-    }
-
-    for (let i = 0; i < arrayGastos.length; i++) {
-        totalGastos += arrayGastos[i];
-    }
-
+function EstadoPyG(totalIngresos, totalGastos){
+    let mensaje = '';
     const balance = totalIngresos - totalGastos;
-    console.log("======= Estado P&G =======");
-    console.log(`Total Ingresos: $${totalIngresos}`);
-    console.log(`Total Gastos: $${totalGastos}`);
-    console.log(`Balance: $${balance}`);
+    mensaje += "======= Estado P&G =======\n";
+    mensaje += `\nTotal Ingresos: $${totalIngresos}`;
+    mensaje += `\nTotal Gastos:   $${totalGastos}`;
+    mensaje += `\nBalance:        $${balance}\n`;
+
+    if (balance > 0) {
+        mensaje += "💰 ¡Buen trabajo! Tienes un superávit.";
+    }
+    else if (balance < 0) {
+        mensaje += "🚨 ¡Cuidado! Tienes un déficit.";
+    } else {
+        mensaje += "⚖️ Tu presupuesto está equilibrado.";
+    }
+    alert(mensaje);
 }
 
 
@@ -68,7 +71,6 @@ while(continuar){
         case 1:
             monto = parseFloat(prompt("Ingrese el monto del ingreso:"));
             if (isNaN(monto) || monto <= 0) {
-                console.log("Monto de ingreso inválido. Debe ser un número positivo.");
                 alert("Monto de ingreso inválido. Debe ser un número positivo.");
                 break;
             }
@@ -77,22 +79,19 @@ while(continuar){
         case 2:
             monto = parseFloat(prompt("Ingrese el monto del gasto:"));
             if (isNaN(monto) || monto <= 0) {
-                console.log("Monto de gasto inválido. Debe ser un número positivo.");
                 alert("Monto de gasto inválido. Debe ser un número positivo.");
                 break;
             }
             Gasto(Gastos, FechasGastos, monto);
             break;
         case 3:
-            console.log("======= 💰 Resumen 💰 =======");
-            totalIngresos = Estado(Ingresos, FechasIngresos);
-            console.log(`Total de ingresos 📈: $${totalIngresos}`);
-            totalGastos = Estado(Gastos, FechasGastos);
-            console.log(`Total de gastos 📉: $${totalGastos}`)
-            EstadoPyG(Ingresos, Gastos);
+
+            totalIngresos = Estado(Ingresos, FechasIngresos, 'Ingresos');
+            totalGastos = Estado(Gastos, FechasGastos, 'Gastos');
+            EstadoPyG(totalIngresos, totalGastos);
             break;
         default:
-            console.log('Saliendo del programa 👋🏻');
+            alert('Saliendo del programa 👋🏻');
             continuar = false;
     }
 }
