@@ -126,11 +126,11 @@ nav a:hover {
     font-size: 0.95rem;
 }
 
-.movement-card.income {
+.movement-card.ingreso {
     border-left: 5px solid var(--income-color);
     background-color: var(--income-bg-color); 
 }
-.movement-card.expense {
+.movement-card.gasto {
     border-left: 5px solid var(--expense-color);
     background-color: var(--expense-bg-color);
 }
