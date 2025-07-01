@@ -1,13 +1,245 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tuffy:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Base Styles */
 body {
-    font-family: Arial, sans-serif;
-    color: #1c002e;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    background-color: var(--background-color);
+    padding: var(--spacing-sm);
+    margin: 0;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+:root {
+    --primary-color: #3b82f6;       /* Blue-600 */
+    --primary-dark-color: #2563eb;  /* Blue-700 */
+    --secondary-color: #8b5cf6;     /* Purple-600 */
+    --background-color: #f0f2f5;    /* Light gray */
+    --card-background: white;
+    --text-color: #1f2937;          /* Gray-800 */
+    --text-light-color: #4b5563;    /* Gray-600 */
+    --text-lighter-color: #6b7280;  /* Gray-500 */
+    --heading-color: #1f2937;       /* Gray-800 */
+    --income-color: #28a745;        /* Green */
+    --income-bg-light: #34d399;  /* Green-400 */
+    --expense-color: #dc3545;       /* Red */
+    --expense-bg-light: #f87171; /* Red-400 */
+    --income-bg-color: #8bfac6;     /* Green-50 */
+    --expense-bg-color: #fab9b9;    /* Red-50 */
+    --purple-bg-color: #f5f3ff;     /* Purple-50 */
+    --orange-bg-color: #fff7ed;     /* Orange-50 */
+    --light-gray-card-bg: #e2e8f0;
+
+    --spacing-xs: 0.25rem;            /* 4px */
+    --spacing-sm: 0.5rem;             /* 8px */
+    --spacing-md: 1rem;               /* 16px */
+    --spacing-lg: 1.5rem;             /* 24px */
+    --spacing-xl: 2rem;               /* 32px */
+    --spacing-xxl: 3rem;              /* 48px */
+
+    --text-sm: 0.875rem;              /* 14px */
+
+    --border-radius-sm: 0.75rem;      /* 12px */
+    --border-radius-md: 1.5rem;       /* 24px */
+
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --transition-ease: all 0.2s ease-in-out;
+
+    --max-width-desktop: 2500px;
+}
+
+/* Navbar */
+nav {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav .logo {
+    font-size: var(--spacing-lg);
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+nav a {
+    color: var(--text-light-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-ease);
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.bento-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 150px;
+}
+
+.bento-card h2 {
+    color: var(--heading-color);
+}
+
+.income {
+    color: var(--income-color);
+}
+.expense {
+    color: var(--expense-color);
+}
+.balance {
+    color: var(--text-color);
+}
+
+.movement-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background-color: #e2e8f0; /* Lighter gray for movement cards */
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.movement-card.income {
+    border-left: 5px solid var(--income-color);
+    background-color: var(--income-bg-color); 
+}
+.movement-card.expense {
+    border-left: 5px solid var(--expense-color);
+    background-color: var(--expense-bg-color);
+}
+
+/* Bento Grid Layout */
+.bento-grid {
+    display: grid;
+    gap: var(--spacing-md);
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(150px, auto);
+    max-width: var(--max-width-desktop);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    /* Resumen de Ingresos y Gastos */
+    #balance-summary-card {
+        grid-column: 1 / 4; 
+        grid-row: 1 / 2;
+    }
+
+    #balance-summary-card div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #balance-summary-card p{
+        margin: 0;
+        font-size: var(--spacing-md);
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    /* Ingresar Movimientos */
+    #input-form-card { 
+        grid-column: 1 / 2;
+        grid-row: 2 / 5;
+    }
+
+    /* Card de movimientos */
+    #movements-display-card { 
+        grid-column: 3 / 4;
+        grid-row: 2 / 8;
+
+    }
+
+    
+    /* Gráfico de Gastos por Categoría */
+    #chart-card-1 { 
+        grid-column: 2 / 3; /* Span the first column */
+        grid-row: 2 / 5;   /* Place in the third row */
+    }
+    
+    /* Gráfico para Flujo en el tiempo */
+    #chart-card-2 { 
+        grid-column: 1 / 3; /* Span the first column */
+        grid-row: 5 / 6;   /* Span 2 rows */
+    }
+    
+}
+
+/* Formulario */
+label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+input[type="number"],
+input[type="date"],
+input[type="text"],
+select {
+    display: block;
+    width: 100%;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    padding: var(--spacing-sm);
+    color: var(--text-color);
+    background-color: white;
+    transition: border-color var(--transition-ease), box-shadow var(--transition-ease);
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--heading-color);
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-ease);
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-dark-color);
 }

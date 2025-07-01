@@ -1,13 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/main.js"></script>
+    <script defer src="/js/main.js"></script>
+    <title>Administrando mi guita</title>
 </head>
 <body>
-    <h1>Simulador de Presupuesto</h1>
+    <header>
+        <!-- Navbar -->
+        <nav>
+            <div class="logo">Guita managment</div>
+            <div>
+                <a href="#">Home</a>
+                <a href="#">Configuración</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Contenedor Principal Grid -->
+        <div class="bento-grid">
+            <!-- Contenedor: Resumen de Balance General -->
+            <div id="balance-summary-card" class="bento-card">
+                <h2>Balance General</h2>
+                <div>
+                    <p class="income">Ingresos Totales: <span id="total-income">$0.00</span></p>
+                    <p class="expense">Gastos Totales: <span id="total-expense">$0.00</span></p>
+                    <p class="balance">Balance Neto: <span id="net-balance">$0.00</span></p>
+                </div>
+            </div>
+
+            <!-- Contenedor: Ingresar Movimientos -->
+            <div id="input-form-card" class="bento-card">
+                <h2>Registrar Movimiento</h2>
+                <form id="movement-form">
+                    <div>
+                        <label for="amount">Monto</label>
+                        <input type="number" id="amount" placeholder="0.00" min="0" step="10" required>
+                    </div>
+                    <div>
+                        <label for="date">Fecha</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div>
+                        <label for="category">Categoría</label>
+                        <input type="text" id="category" placeholder="Ej: Comida, Salario" required>
+                    </div>
+                    <div>
+                        <label for="type">Tipo</label>
+                        <select id="type" required>
+                            <option value="income">Ingreso</option>
+                            <option value="expense">Gasto</option>
+                        </select>
+                    </div>
+                    <button id="agregar-movimiento" type="submit">Agregar Movimiento</button>
+                </form>
+            </div>
+
+            <!-- Contenedor: Mostrar Movimientos Agregados -->
+            <div id="movements-display-card" class="bento-card">
+                <h2>Historial de Movimientos</h2>
+                <div id="movements-list">
+                    <p id="no-movements">No hay movimientos registrados.</p>
+                </div>
+            </div>
+
+            <!-- Contenedor para Gráficos 1 -->
+            <div id="chart-card-1" class="bento-card">
+                <h2>Gráfico de Gastos por Categoría</h2>
+                <p>Aquí se mostrará un gráfico de tus gastos.</p>
+            </div>
+
+            <!-- Contenedor para Gráficos 2 -->
+            <div id="chart-card-2" class="bento-card">
+                <h2>Gráfico de Flujo de Efectivo</h2>
+                <p>Aquí se mostrará un gráfico del flujo de efectivo.</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
+    
+
+    
