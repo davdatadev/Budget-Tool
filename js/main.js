@@ -1,10 +1,3 @@
-// Prohibido console.log y alert
-// Documento HTML al menos uno
-// CSS para el HTML
-// Implementar localStorage para guardar
-// Utilizar Arrays, objetos y funciones de orden superior minimo 2 diferentes
-// Utilizar DOM y eventos
-
 class Movimiento {
     // Contador estático para generar IDs únicos
     static contadorId = 0;
@@ -45,7 +38,6 @@ function leerMovimientos() {
     // Encontrar el máximo ID existente para evitar conflictos con el contador estático
     // Utilizar del contenido adicional el Spread, cero al final por si no hay movimientos guardados
     const maxId = Math.max(...movimientosData.map(data => parseInt(data.id, 10)), 0);
-    console.log('Max ID:', maxId); // Borrar
     Movimiento.contadorId = maxId;
 
     // Mapear los datos a instancias de la clase Movimiento
@@ -93,7 +85,6 @@ function actualizarListaMovimientos() {
 
     sortedMovements.forEach(movimiento => {
         const movementCard = document.createElement('div');
-        console.log(movimiento.obtenerMovimiento()); // Borrar
         movementCard.className = `movement-card ${movimiento.tipo.toLowerCase()}`; // Esto es para darle un estilo diferente según el tipo de movimiento
         movementCard.innerHTML = `
             <div>
@@ -129,13 +120,12 @@ function updateBalanceSummary() {
 let movimientos = leerMovimientos();
 
 // // Si no hay movimientos crear unos de prueba
-if (movimientos.length === 0) {
-    console.log('No hay movimientos guardados, creando unos de prueba...'); // Borrar
-    movimientos.push(new Movimiento('Ingreso', 'Salario', '2025-05-01', 2000));
-    movimientos.push(new Movimiento('Gasto', 'Comida', '2025-05-02', 200));
-    movimientos.push(new Movimiento('Gasto', 'Servicios', '2025-05-03', 100));
-    guardarMovimientos(movimientos);
-}
+// if (movimientos.length === 0) {
+//     movimientos.push(new Movimiento('Ingreso', 'Salario', '2025-05-01', 2000));
+//     movimientos.push(new Movimiento('Gasto', 'Comida', '2025-05-02', 200));
+//     movimientos.push(new Movimiento('Gasto', 'Servicios', '2025-05-03', 100));
+//     guardarMovimientos(movimientos);
+// }
 
 // Añadir event listener al formulario
 document.getElementById('movement-form').addEventListener('submit', agregarMovimiento);
