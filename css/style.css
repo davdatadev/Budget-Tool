@@ -11,139 +11,147 @@
 
 /* Base Styles */
 body {
-    font-family: "Poppins", sans-serif;
-    background-color: var(--background-color);
-    padding: var(--spacing-sm);
-    margin: 0;
-    line-height: 1.5;
-    color: var(--text-color);
+  background-color: var(--background-color);
+  padding: var(--spacing-sm);
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text-color);
 }
 
 :root {
-    --primary-color: #3b82f6;       /* Blue-600 */
-    --primary-dark-color: #2563eb;  /* Blue-700 */
-    --secondary-color: #8b5cf6;     /* Purple-600 */
-    --background-color: #f0f2f5;    /* Light gray */
-    --card-background: white;
-    --text-color: #1f2937;          /* Gray-800 */
-    --text-light-color: #4b5563;    /* Gray-600 */
-    --text-lighter-color: #6b7280;  /* Gray-500 */
-    --heading-color: #1f2937;       /* Gray-800 */
-    --income-color: #28a745;        /* Green */
-    --income-bg-light: #34d399;  /* Green-400 */
-    --expense-color: #dc3545;       /* Red */
-    --expense-bg-light: #f87171; /* Red-400 */
-    --income-bg-color: #8bfac6;     /* Green-50 */
-    --expense-bg-color: #fab9b9;    /* Red-50 */
-    --purple-bg-color: #f5f3ff;     /* Purple-50 */
-    --orange-bg-color: #fff7ed;     /* Orange-50 */
-    --light-gray-card-bg: #e2e8f0;
+  --primary-color: #3b82f6;       /* Blue-600 */
+  --primary-dark-color: #2563eb;  /* Blue-700 */
+  --secondary-color: #8b5cf6;     /* Purple-600 */
+  --background-color: #f0f2f5;    /* Light gray */
+  --card-background: white;
+  --text-color: #1f2937;          /* Gray-800 */
+  --text-light-color: #4b5563;    /* Gray-600 */
+  --text-lighter-color: #6b7280;  /* Gray-500 */
+  --heading-color: #1f2937;       /* Gray-800 */
+  --income-color: #28a745;        /* Green */
+  --income-bg-light: #34d399;  /* Green-400 */
+  --expense-color: #dc3545;       /* Red */
+  --expense-bg-light: #f87171; /* Red-400 */
+  --income-bg-color: #8bfac6;     /* Green-50 */
+  --expense-bg-color: #fab9b9;    /* Red-50 */
+  --purple-bg-color: #f5f3ff;     /* Purple-50 */
+  --orange-bg-color: #fff7ed;     /* Orange-50 */
+  --light-gray-card-bg: #e2e8f0;
 
-    --spacing-xs: 0.25rem;            /* 4px */
-    --spacing-sm: 0.5rem;             /* 8px */
-    --spacing-md: 1rem;               /* 16px */
-    --spacing-lg: 1.5rem;             /* 24px */
-    --spacing-xl: 2rem;               /* 32px */
-    --spacing-xxl: 3rem;              /* 48px */
+  --spacing-xs: 0.25rem;            /* 4px */
+  --spacing-sm: 0.5rem;             /* 8px */
+  --spacing-md: 1rem;               /* 16px */
+  --spacing-lg: 1.5rem;             /* 24px */
+  --spacing-xl: 2rem;               /* 32px */
+  --spacing-xxl: 3rem;              /* 48px */
 
-    --text-sm: 0.875rem;              /* 14px */
+  --text-sm: 0.875rem;              /* 14px */
 
-    --border-radius-sm: 0.75rem;      /* 12px */
-    --border-radius-md: 1.5rem;       /* 24px */
+  --border-radius-sm: 0.75rem;      /* 12px */
+  --border-radius-md: 1.5rem;       /* 24px */
 
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --transition-ease: all 0.2s ease-in-out;
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --transition-ease: all 0.2s ease-in-out;
 
-    --max-width-desktop: 2500px;
+  --max-width-desktop: 2500px;
 }
 
 /* Navbar */
 nav {
-    background-color: var(--card-background);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 nav .logo {
-    font-size: var(--spacing-lg);
-    font-weight: 700;
-    color: var(--heading-color);
+  font-size: var(--spacing-lg);
+  font-weight: 700;
+  color: var(--heading-color);
 }
 
 nav a {
-    color: var(--text-light-color);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-sm);
-    transition: var(--transition-ease);
-    text-decoration: none;
+  color: var(--text-light-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-ease);
+  text-decoration: none;
 }
 
 nav a:hover {
-    color: var(--primary-color);
-    background-color: rgba(59, 130, 246, 0.1);
+  color: var(--primary-color);
+  background-color: rgba(59, 130, 246, 0.1);
 }
 
 .bento-card {
-    background-color: var(--card-background);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-    padding: var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 150px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 150px;
 }
 
 .bento-card h2 {
-    color: var(--heading-color);
+  color: var(--heading-color);
+}
+
+.balance-summary{
+  padding: var(--spacing-md);
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-md);
+  font-size: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .income {
-    color: var(--income-color);
+  color: var(--income-color);
 }
 .expense {
-    color: var(--expense-color);
+  color: var(--expense-color);
 }
 .balance {
-    color: var(--text-color);
+  color: var(--text-color);
 }
 
 .movement-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-    background-color: #e2e8f0; /* Lighter gray for movement cards */
-    border-radius: 0.75rem;
-    font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #e2e8f0; /* Lighter gray for movement cards */
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
 }
 
 .movement-card.ingreso {
-    border-left: 5px solid var(--income-color);
-    background-color: var(--income-bg-color); 
+  border-left: 5px solid var(--income-color);
+  background-color: var(--income-bg-color); 
 }
 .movement-card.gasto {
-    border-left: 5px solid var(--expense-color);
-    background-color: var(--expense-bg-color);
+  border-left: 5px solid var(--expense-color);
+  background-color: var(--expense-bg-color);
 }
 
 /* Bento Grid Layout */
 .bento-grid {
-    display: grid;
-    gap: var(--spacing-md);
-    grid-template-columns: 1fr;
-    grid-auto-rows: minmax(150px, auto);
-    max-width: var(--max-width-desktop);
-    margin-left: auto;
-    margin-right: auto;
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(150px, auto);
+  max-width: var(--max-width-desktop);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 1024px) {

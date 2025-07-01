@@ -109,10 +109,20 @@ function actualizarListaMovimientos() {
         movimientosContainer.appendChild(movementCard);
     });
 
-    // updateBalanceSummary();
+    updateBalanceSummary();
 }
  
 // Función para actualizar el resumen del balance
+function updateBalanceSummary() {
+    const totalIngresos = movimientos.filter(movimiento => movimiento.tipo === 'Ingreso').reduce((total, movimiento) => total + movimiento.monto, 0);
+    const totalGastos = movimientos.filter(movimiento => movimiento.tipo === 'Gasto').reduce((total, movimiento) => total + movimiento.monto, 0);
+    const balance = totalIngresos - totalGastos;
+
+    const balanceSummary = document.getElementById('balance-summary');
+    document.getElementById('total-income').textContent = `$${totalIngresos.toFixed(2)}`; // con toFixed(2) puedo retornar el número con dos decimales
+    document.getElementById('total-expense').textContent = `$${totalGastos.toFixed(2)}`;
+    document.getElementById('net-balance').textContent = `$${balance.toFixed(2)}`;
+}
 
 // ============================================================================================
 
@@ -121,16 +131,13 @@ let movimientos = leerMovimientos();
 // // Si no hay movimientos crear unos de prueba
 if (movimientos.length === 0) {
     console.log('No hay movimientos guardados, creando unos de prueba...'); // Borrar
-    movimientos.push(new Movimiento('Ingreso', 'salario', '2023-10-01', 2000));
-    movimientos.push(new Movimiento('Gasto', 'comida', '2023-10-02', 200));
-    movimientos.push(new Movimiento('Gasto', 'servicios', '2023-10-03', 100));
-    console.log(movimientos); // Borrar
-
+    movimientos.push(new Movimiento('Ingreso', 'Salario', '2025-05-01', 2000));
+    movimientos.push(new Movimiento('Gasto', 'Comida', '2025-05-02', 200));
+    movimientos.push(new Movimiento('Gasto', 'Servicios', '2025-05-03', 100));
     guardarMovimientos(movimientos);
-    actualizarListaMovimientos()
 }
 
 // Añadir event listener al formulario
 document.getElementById('movement-form').addEventListener('submit', agregarMovimiento);
-actualizarListaMovimientos();
+actualizarListaMovimientos()
 
