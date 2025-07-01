@@ -120,12 +120,12 @@ function updateBalanceSummary() {
 let movimientos = leerMovimientos();
 
 // // Si no hay movimientos crear unos de prueba
-// if (movimientos.length === 0) {
-//     movimientos.push(new Movimiento('Ingreso', 'Salario', '2025-05-01', 2000));
-//     movimientos.push(new Movimiento('Gasto', 'Comida', '2025-05-02', 200));
-//     movimientos.push(new Movimiento('Gasto', 'Servicios', '2025-05-03', 100));
-//     guardarMovimientos(movimientos);
-// }
+if (movimientos.length === 0) {
+    movimientos.push(new Movimiento('Ingreso', 'Salario', '2025-05-01', 2000));
+    movimientos.push(new Movimiento('Gasto', 'Comida', '2025-05-02', 200));
+    movimientos.push(new Movimiento('Gasto', 'Servicios', '2025-05-03', 100));
+    guardarMovimientos(movimientos);
+}
 
 // Añadir event listener al formulario
 document.getElementById('movement-form').addEventListener('submit', agregarMovimiento);
