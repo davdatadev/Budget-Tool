@@ -19,24 +19,36 @@ body {
 }
 
 :root {
-  --primary-color: #3b82f6;       /* Blue-600 */
-  --primary-dark-color: #2563eb;  /* Blue-700 */
-  --secondary-color: #8b5cf6;     /* Purple-600 */
-  --background-color: #f0f2f5;    /* Light gray */
-  --card-background: white;
-  --text-color: #1f2937;          /* Gray-800 */
-  --text-light-color: #4b5563;    /* Gray-600 */
-  --text-lighter-color: #6b7280;  /* Gray-500 */
-  --heading-color: #1f2937;       /* Gray-800 */
-  --income-color: #28a745;        /* Green */
-  --income-bg-light: #34d399;  /* Green-400 */
-  --expense-color: #dc3545;       /* Red */
-  --expense-bg-light: #f87171; /* Red-400 */
-  --income-bg-color: #8bfac6;     /* Green-50 */
-  --expense-bg-color: #fab9b9;    /* Red-50 */
-  --purple-bg-color: #f5f3ff;     /* Purple-50 */
-  --orange-bg-color: #fff7ed;     /* Orange-50 */
-  --light-gray-card-bg: #e2e8f0;
+  /* === Primary Colors === */
+  --primary-color: hsl(217, 91%, 60%);
+  --primary-dark-color: hsl(from var(--primary-color) h s calc(l - 20));
+  --primary-light-color: hsl(from var(--primary-color) h s calc(l + 20));
+  
+  /* === Secondary Colors === */
+  --background-color: hsl(215, 28%, 17%);
+  --background-dark-color: hsl(from var(--background-color) h s calc(l - 20));
+  --background-light-color: hsl(from var(--background-color) h s calc(l + 20));
+
+
+  /* === Text Colors === */
+  --text-color: hsl(215, 85%, 92%);
+  --text-dark-color: hsl(from var(--text-color) h s calc(l - 70));                
+  --text-light-color: hsl(from var(--text-color) h s calc(l + 20)); 
+  
+
+
+  /* === Income Colors === */
+  --income-color: hsl(134, 61%, 41%);              
+  --income-dark-color: hsl(from var(--income-color) h s calc(l - 20)); 
+  --income-light-color: hsl(from var(--income-color) h s calc(l + 10)); 
+  --income-bg-color: hsl(from var(--income-color) h s calc(l + 50));
+  
+  
+  /* === Expense Colors === */
+  --expense-color: hsl(354, 70%, 41%);
+  --expense-dark-color: hsl(from var(--expense-color) h s calc(l - 20));
+  --expense-light-color: hsl(from var(--expense-color) h s calc(l + 10));
+  --expense-bg-color: hsl(from var(--expense-color) h s calc(l + 50));
 
   --spacing-xs: 0.25rem;            /* 4px */
   --spacing-sm: 0.5rem;             /* 8px */
@@ -50,7 +62,6 @@ body {
   --border-radius-sm: 0.75rem;      /* 12px */
   --border-radius-md: 1.5rem;       /* 24px */
 
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --transition-ease: all 0.2s ease-in-out;
 
   --max-width-desktop: 2500px;
@@ -58,9 +69,8 @@ body {
 
 /* Navbar */
 nav {
-  background-color: var(--card-background);
+  background-color: var(--background-light-color);
   border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-md);
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
   display: flex;
@@ -73,7 +83,7 @@ nav {
 nav .logo {
   font-size: var(--spacing-lg);
   font-weight: 700;
-  color: var(--heading-color);
+  color: var(--text-color);
 }
 
 nav a {
@@ -90,9 +100,8 @@ nav a:hover {
 }
 
 .bento-card {
-  background-color: var(--card-background);
+  background-color: var(--background-light-color);
   border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-md);
   padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
@@ -101,12 +110,12 @@ nav a:hover {
 }
 
 .bento-card h2 {
-  color: var(--heading-color);
+  color: var(--text-color);
 }
 
 .balance-summary{
   padding: var(--spacing-md);
-  background-color: var(--card-background);
+  background-color: var(--background-light-color);
   border-radius: var(--border-radius-sm);
   font-size: var(--spacing-lg);
   font-weight: 600;
@@ -136,10 +145,12 @@ nav a:hover {
 .movement-card.ingreso {
   border-left: 5px solid var(--income-color);
   background-color: var(--income-bg-color); 
+  color: var(--text-dark-color)
 }
 .movement-card.gasto {
   border-left: 5px solid var(--expense-color);
   background-color: var(--expense-bg-color);
+  color: var(--text-dark-color)
 }
 
 /* Bento Grid Layout */
@@ -232,7 +243,7 @@ input:focus,
 select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--heading-color);
+    box-shadow: 0 0 0 3px var(--text-color);
 }
 
 button[type="submit"] {

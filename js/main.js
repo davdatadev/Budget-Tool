@@ -87,14 +87,12 @@ function actualizarListaMovimientos() {
         const movementCard = document.createElement('div');
         movementCard.className = `movement-card ${movimiento.tipo.toLowerCase()}`; // Esto es para darle un estilo diferente según el tipo de movimiento
         movementCard.innerHTML = `
-            <div>
                 <p><strong>${movimiento.categoria}</strong></p>
                 <p>${movimiento.fechaMovimiento}</p>
             </div>
             <div>
                 <p>$${movimiento.monto.toFixed(2)}</p>
                 <p>${movimiento.tipo}</p>
-            </div>
         `;
         
         movimientosContainer.appendChild(movementCard);
