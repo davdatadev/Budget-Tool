@@ -1,0 +1,26 @@
+[
+    {
+    "id": "1",
+    "tipo": "Ingreso",
+    "categoria": "Salario",
+    "fechaMovimiento": "2025-05-01",
+    "fechaCreacion": "2025-05-03",
+    "monto": 2000
+    },
+    {
+    "id": "1",
+    "tipo": "Gasto",
+    "categoria": "Arriendo",
+    "fechaMovimiento": "2025-05-02",
+    "fechaCreacion": "2025-05-03",
+    "monto": 500
+    },
+    {
+    "id": "1",
+    "tipo": "Gasto",
+    "categoria": "Comida",
+    "fechaMovimiento": "2025-05-03",
+    "fechaCreacion": "2025-05-03",
+    "monto": 500
+    }
+]

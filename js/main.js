@@ -1,3 +1,5 @@
+const URLMovimientos = "./db/data.json"
+
 class Movimiento {
     // Contador estático para generar IDs únicos
     static contadorId = 0;
@@ -9,20 +11,9 @@ class Movimiento {
         this.categoria = categoria;
         this.fechaMovimiento = fechaMovimiento;
         this.fechaCreacion = new Date();
-        this.monto = monto;
+        this.monto = parseFloat(monto);
     }
 
-    // Método para obtener una representación del movimiento
-    obtenerMovimiento() {
-        return {
-            id: this.id,
-            tipo: this.tipo,
-            categoria: this.categoria,
-            fechaMovimiento: this.fechaMovimiento,
-            fechaCreacion: this.fechaCreacion.toISOString(),
-            monto: this.monto
-        };
-    }
 }
 
 function guardarMovimientos(movimientos) {
@@ -114,18 +105,58 @@ function updateBalanceSummary() {
 }
 
 // ============================================================================================
+// Flujo a cumplir:
+// Leer los datos base desde data.json (si localStorage está vacío).
+// Guardar en localStorage (si es la primera vez).
+// Cargar lo que esté en localStorage (en forma de instancias).
+// Renderizar esos movimientos en el HTML.
 
-let movimientos = leerMovimientos();
-
-// // Si no hay movimientos crear unos de prueba
-if (movimientos.length === 0) {
-    movimientos.push(new Movimiento('Ingreso', 'Salario', '2025-05-01', 2000));
-    movimientos.push(new Movimiento('Gasto', 'Comida', '2025-05-02', 200));
-    movimientos.push(new Movimiento('Gasto', 'Servicios', '2025-05-03', 100));
-    guardarMovimientos(movimientos);
+async function cargarMovimientosIniciales() {
+    try {
+        // Primero, leer los movimientos guardados en localStorage
+        const guardados = localStorage.getItem('movimientos');
+        if (guardados) {
+            movimientos = JSON.parse(guardados).map(data => {
+                const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
+                movimiento.id = data.id;
+                movimiento.fechaCreacion = new Date(data.fechaCreacion);
+                return movimiento;
+            });
+            // Encontrar el máximo ID existente para evitar conflictos con el contador estático
+            const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
+            Movimiento.contadorId = maxId;
+            return movimientos; // Si ya hay movimientos guardados, no cargar los iniciales
+        } else {
+            const response = await fetch(URLMovimientos);
+            const movimientosIniciales = await response.json();
+            console.log("Datos iniciales:", movimientosIniciales);            
+            movimientos = movimientosIniciales.map(data => {
+                const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
+                movimiento.id = data.id;
+                movimiento.fechaCreacion = new Date(data.fechaCreacion);
+                return movimiento;
+            });
+            // Encontrar el máximo ID existente para evitar conflictos con el contador estático
+            const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
+            Movimiento.contadorId = maxId;
+            // Guardar por primera vez
+            localStorage.setItem("movimientos", JSON.stringify(movimientos));
+        }
+    actualizarListaMovimientos();
+    } catch (error) {
+        console.error('Error al cargar los movimientos iniciales:', error);
+        return;
+    }
 }
 
-// Añadir event listener al formulario
-document.getElementById('movement-form').addEventListener('submit', agregarMovimiento);
-actualizarListaMovimientos()
+let movimientos = [];
+async function iniciarApp() {
+    movimientos = await cargarMovimientosIniciales();
+    actualizarListaMovimientos();
+
+    // Añadir el listener después de que se haya cargado todo
+    document.getElementById('movement-form').addEventListener('submit', agregarMovimiento);
+}
+
+iniciarApp();
 
