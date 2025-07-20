@@ -4,23 +4,23 @@
     "tipo": "Ingreso",
     "categoria": "Salario",
     "fechaMovimiento": "2025-05-01",
-    "fechaCreacion": "2025-05-03",
+    "fechaCreacion": "2025-07-01T09:30",
     "monto": 2000
     },
     {
-    "id": "1",
+    "id": "2",
     "tipo": "Gasto",
     "categoria": "Arriendo",
     "fechaMovimiento": "2025-05-02",
-    "fechaCreacion": "2025-05-03",
+    "fechaCreacion": "2025-07-04T14:30",
     "monto": 500
     },
     {
-    "id": "1",
+    "id": "3",
     "tipo": "Gasto",
     "categoria": "Comida",
     "fechaMovimiento": "2025-05-03",
-    "fechaCreacion": "2025-05-03",
+    "fechaCreacion": "2025-07-05T18:30",
     "monto": 500
     }
 ]

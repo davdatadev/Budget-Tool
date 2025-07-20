@@ -16,6 +16,11 @@ class Movimiento {
 
 }
 
+// Variable global
+let movimientos = [];
+// Para el estado de la edición
+let movimientoEditando = null;
+
 function guardarMovimientos(movimientos) {
   localStorage.setItem('movimientos', JSON.stringify(movimientos));
 }
@@ -69,39 +74,55 @@ function actualizarListaMovimientos() {
 
     if (movimientos.length === 0) {
         movimientosContainer.innerHTML = '<p id="no-movements">No hay movimientos registrados.</p>';
-        return;
-    }
-    // Ordenar los movimientos por fecha de movimiento (más reciente primero)
-    const sortedMovements = [...movimientos].sort((a, b) => new Date(b.fechaMovimiento) - new Date(a.fechaMovimiento));
-
-    sortedMovements.forEach(movimiento => {
-        const movementCard = document.createElement('div');
-        movementCard.className = `movement-card ${movimiento.tipo.toLowerCase()}`; // Esto es para darle un estilo diferente según el tipo de movimiento
-        movementCard.innerHTML = `
-                <p><strong>${movimiento.categoria}</strong></p>
-                <p>${movimiento.fechaMovimiento}</p>
-            </div>
-            <div>
-                <p>$${movimiento.monto.toFixed(2)}</p>
-                <p>${movimiento.tipo}</p>
-            </div>
-            <div class="movement-actions">
-                <button class="btn-editar" data-id="${movimiento.id}" title="Editar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-eliminar" data-id="${movimiento.id}" title="Eliminar">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </div>
-                
-        `;
         
-        movimientosContainer.appendChild(movementCard);
-    });
+    } else {
 
+        // Ordenar los movimientos por fecha de movimiento (más reciente primero)
+        const sortedMovements = [...movimientos].sort((a, b) => new Date(b.fechaMovimiento) - new Date(a.fechaMovimiento));
+
+        sortedMovements.forEach(movimiento => {
+            const movementCard = document.createElement('div');
+            movementCard.className = `movement-card ${movimiento.tipo.toLowerCase()}`; // Esto es para darle un estilo diferente según el tipo de movimiento
+            movementCard.innerHTML = `
+                    <p><strong>${movimiento.categoria}</strong></p>
+                    <p>${movimiento.fechaMovimiento}</p>
+                </div>
+                <div>
+                    <p>$${movimiento.monto.toFixed(0)}</p>
+                    <p>${movimiento.tipo}</p>
+                </div>
+                <div class="movement-actions">
+                    <button class="btn-editar" data-id="${movimiento.id}" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-eliminar" data-id="${movimiento.id}" title="Eliminar">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+                    
+            `;
+            
+            movimientosContainer.appendChild(movementCard);
+        });
+        // Agregar el listener para el botón de eliminar
+        // Escucha todos los click sobre el contenedor padre y Utilizar el método closest para encontrar el botón más cercano con la clase btn-eliminar
+        document.getElementById('movements-list').addEventListener('click', (e) => {
+            if (e.target.closest('.btn-eliminar')) {
+                const id = e.target.closest('.btn-eliminar').dataset.id;
+                eliminarMovimiento(id);
+            }
+        });
+    }
     updateBalanceSummary();
 }
  
+function eliminarMovimiento(id) {
+    console.log(`Eliminando movimiento con ID: ${id}`);
+    movimientos = movimientos.filter(mov => mov.id !== id);
+    guardarMovimientos(movimientos);
+    actualizarListaMovimientos();
+}
+
 // Función para actualizar el resumen del balance
 function updateBalanceSummary() {
     const totalIngresos = movimientos.filter(movimiento => movimiento.tipo === 'Ingreso').reduce((total, movimiento) => total + movimiento.monto, 0);
@@ -113,13 +134,6 @@ function updateBalanceSummary() {
     document.getElementById('total-expense').textContent = `$${totalGastos.toFixed(2)}`;
     document.getElementById('net-balance').textContent = `$${balance.toFixed(2)}`;
 }
-
-// ============================================================================================
-// Flujo a cumplir:
-// Leer los datos base desde data.json (si localStorage está vacío).
-// Guardar en localStorage (si es la primera vez).
-// Cargar lo que esté en localStorage (en forma de instancias).
-// Renderizar esos movimientos en el HTML.
 
 async function cargarMovimientosIniciales() {
     try {
@@ -158,7 +172,6 @@ async function cargarMovimientosIniciales() {
     }
 }
 
-let movimientos = [];
 async function iniciarApp() {
     movimientos = await cargarMovimientosIniciales();
     actualizarListaMovimientos();
