@@ -1,51 +1,25 @@
-const URLMovimientos = "./db/data.json"
-
-class Movimiento {
-    // Contador estático para generar IDs únicos
-    static contadorId = 0;
-
-    constructor(tipo, categoria, fechaMovimiento, monto) {
-        Movimiento.contadorId++;
-        this.id = Movimiento.contadorId.toString();
-        this.tipo = tipo;
-        this.categoria = categoria;
-        this.fechaMovimiento = fechaMovimiento;
-        this.fechaCreacion = new Date();
-        this.monto = parseFloat(monto);
-    }
-
-}
+import { Movimiento, sincronizarContadorMovimiento } from './movimiento.js';
 
 // Variable global
+const URLMovimientos = "./db/data.json"
 let movimientos = [];
-// Para el estado de la edición
-let movimientoEditando = null;
+const movimientosContainer = document.getElementById('movements-list');
 
 function guardarMovimientos(movimientos) {
   localStorage.setItem('movimientos', JSON.stringify(movimientos));
 }
 
-function leerMovimientos() {
-    // Primero leo del localStorage las movimientos guardadas
-    const movimientosJSON = localStorage.getItem('movimientos');
-    if (movimientosJSON) {
-    // Parsear el JSON de vuelta a un array de objetos
-    const movimientosData = JSON.parse(movimientosJSON);
-    // Encontrar el máximo ID existente para evitar conflictos con el contador estático
-    // Utilizar del contenido adicional el Spread, cero al final por si no hay movimientos guardados
-    const maxId = Math.max(...movimientosData.map(data => parseInt(data.id, 10)), 0);
-    Movimiento.contadorId = maxId;
-
-    // Mapear los datos a instancias de la clase Movimiento
-    return movimientosData.map(data => {
+function leerMovimientos(movimientosIniciales) {
+    movimientosIniciales.map(data => {
         const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
         movimiento.id = data.id;
         movimiento.fechaCreacion = new Date(data.fechaCreacion);
         return movimiento;
     });
-    }
-    // Si no hay movimientos en localStorage, retornar un array vacío
-    return [];
+    // Encontrar el máximo ID existente para evitar conflictos con el contador estático
+    const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
+    sincronizarContadorMovimiento(maxId);
+    return movimientosIniciales; // Retorna los movimientos iniciales procesados
 }
 
 function agregarMovimiento(event) {
@@ -69,7 +43,6 @@ function agregarMovimiento(event) {
 }
 
 function actualizarListaMovimientos() {
-    const movimientosContainer = document.getElementById('movements-list');
     movimientosContainer.innerHTML = ''; 
 
     if (movimientos.length === 0) {
@@ -104,21 +77,12 @@ function actualizarListaMovimientos() {
             
             movimientosContainer.appendChild(movementCard);
         });
-        // Agregar el listener para el botón de eliminar
-        // Escucha todos los click sobre el contenedor padre y Utilizar el método closest para encontrar el botón más cercano con la clase btn-eliminar
-        document.getElementById('movements-list').addEventListener('click', (e) => {
-            if (e.target.closest('.btn-eliminar')) {
-                const id = e.target.closest('.btn-eliminar').dataset.id;
-                eliminarMovimiento(id);
-            }
-        });
     }
     updateBalanceSummary();
 }
  
 function eliminarMovimiento(id) {
-    console.log(`Eliminando movimiento con ID: ${id}`);
-    movimientos = movimientos.filter(mov => mov.id !== id);
+    movimientos = movimientos.filter(movimiento => movimiento.id !== id);
     guardarMovimientos(movimientos);
     actualizarListaMovimientos();
 }
@@ -140,30 +104,16 @@ async function cargarMovimientosIniciales() {
         // Primero, leer los movimientos guardados en localStorage
         const guardados = localStorage.getItem('movimientos');
         if (guardados) {
-            movimientos = JSON.parse(guardados).map(data => {
-                const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
-                movimiento.id = data.id;
-                movimiento.fechaCreacion = new Date(data.fechaCreacion);
-                return movimiento;
-            });
-            // Encontrar el máximo ID existente para evitar conflictos con el contador estático
-            const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
-            Movimiento.contadorId = maxId;
+            const movimientosIniciales = JSON.parse(guardados);
+            movimientos = leerMovimientos(movimientosIniciales);
             return movimientos; // Si ya hay movimientos guardados, no cargar los iniciales
         } else {
             const response = await fetch(URLMovimientos);
             const movimientosIniciales = await response.json();        
-            movimientos = movimientosIniciales.map(data => {
-                const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
-                movimiento.id = data.id;
-                movimiento.fechaCreacion = new Date(data.fechaCreacion);
-                return movimiento;
-            });
-            // Encontrar el máximo ID existente para evitar conflictos con el contador estático
-            const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
-            Movimiento.contadorId = maxId;
+            movimientos = leerMovimientos(movimientosIniciales);
             // Guardar por primera vez
             localStorage.setItem("movimientos", JSON.stringify(movimientos));
+            return movimientos; // Retorna los movimientos iniciales procesados
         }
     actualizarListaMovimientos();
     } catch (error) {
@@ -176,9 +126,37 @@ async function iniciarApp() {
     movimientos = await cargarMovimientosIniciales();
     actualizarListaMovimientos();
 
-    // Añadir el listener después de que se haya cargado todo
+    // El listener acá ya que primero tiene que cargar los movimientos
     document.getElementById('movement-form').addEventListener('submit', agregarMovimiento);
+
+    // Listener para el botón de eliminar
+    // Escucha todos los click sobre el contenedor padre 
+    movimientosContainer.addEventListener('click', (event) => {
+        // Método closest para encontrar el botón más cercano con la clase btn-eliminar
+        const targetButton = event.target.closest('.btn-eliminar');
+        if (targetButton) {
+            const id = targetButton.dataset.id;
+            Swal.fire({
+                title: "Esta seguro?",
+                text: "No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarMovimiento(id);
+                    Swal.fire({
+                        title: "Eliminado!",
+                        text: "Tu archivo ha sido eliminado.",
+                        icon: "success"
+                        });
+                }
+            });
+            
+        }
+    });
 }
 
 iniciarApp();
-
