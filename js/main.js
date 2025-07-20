@@ -84,6 +84,16 @@ function actualizarListaMovimientos() {
             <div>
                 <p>$${movimiento.monto.toFixed(2)}</p>
                 <p>${movimiento.tipo}</p>
+            </div>
+            <div class="movement-actions">
+                <button class="btn-editar" data-id="${movimiento.id}" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-eliminar" data-id="${movimiento.id}" title="Eliminar">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+                
         `;
         
         movimientosContainer.appendChild(movementCard);
@@ -128,8 +138,7 @@ async function cargarMovimientosIniciales() {
             return movimientos; // Si ya hay movimientos guardados, no cargar los iniciales
         } else {
             const response = await fetch(URLMovimientos);
-            const movimientosIniciales = await response.json();
-            console.log("Datos iniciales:", movimientosIniciales);            
+            const movimientosIniciales = await response.json();        
             movimientos = movimientosIniciales.map(data => {
                 const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
                 movimiento.id = data.id;

@@ -123,12 +123,15 @@ nav a:hover {
 
 .income {
   color: var(--income-color);
+  text-shadow: 1px 1px 2px var(--income-bg-color);
 }
 .expense {
   color: var(--expense-color);
+  text-shadow: 1px 1px 2px var(--expense-bg-color);
 }
 .balance {
   color: var(--primary-color);
+  text-shadow: 1px 1px 2px var(--primary-light-color);
 }
 
 .movement-card {
@@ -151,6 +154,45 @@ nav a:hover {
   border-left: 5px solid var(--expense-color);
   background-color: var(--expense-bg-color);
   color: var(--text-dark-color)
+}
+
+/* Nuevos estilos para los botones de acción dentro de la tarjeta */
+.movement-actions {
+    display: flex;
+    gap: var(--spacing-sm); /* Espacio entre los botones */
+}
+
+.movement-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--spacing-md); /* Tamaño del ícono */
+    padding: var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-ease);
+    color: var(--text-dark-color); /* Color por defecto de los íconos */
+}
+
+.movement-actions button:hover {
+    transform: scale(1.1); /* Efecto de zoom al pasar el ratón */
+}
+
+.btn-editar:hover {
+    color: var(--primary-color); /* Color del ícono al pasar el ratón */
+}
+
+.btn-eliminar:hover {
+    color: var(--expense-color); /* Color del ícono al pasar el ratón */
+}
+
+/* Asegúrate de que los textos dentro de la tarjeta no se corten */
+.movement-card p {
+    flex-shrink: 0; /* Evita que los párrafos se encojan */
+    margin-right: var(--spacing-sm); /* Espacio entre los elementos */
+}
+
+.movement-card p:last-of-type {
+    margin-right: 0;
 }
 
 /* Bento Grid Layout */
@@ -178,7 +220,6 @@ nav a:hover {
   border: 1px solid #d1d5db;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
-
 
 @media (min-width: 1024px) {
     .bento-grid {
