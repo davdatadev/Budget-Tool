@@ -1,26 +1,10 @@
-import { Movimiento, sincronizarContadorMovimiento } from './movimiento.js';
+import { Movimiento} from './movimiento.js';
+import { guardarMovimientos, leerMovimientos } from './storage.js';
 
 // Variable global
 const URLMovimientos = "./db/data.json"
 let movimientos = [];
 const movimientosContainer = document.getElementById('movements-list');
-
-function guardarMovimientos(movimientos) {
-  localStorage.setItem('movimientos', JSON.stringify(movimientos));
-}
-
-function leerMovimientos(movimientosIniciales) {
-    movimientosIniciales.map(data => {
-        const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
-        movimiento.id = data.id;
-        movimiento.fechaCreacion = new Date(data.fechaCreacion);
-        return movimiento;
-    });
-    // Encontrar el máximo ID existente para evitar conflictos con el contador estático
-    const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
-    sincronizarContadorMovimiento(maxId);
-    return movimientosIniciales; // Retorna los movimientos iniciales procesados
-}
 
 function agregarMovimiento(event) {
     event.preventDefault(); // Esto es para que no recargue la página cada vez que presione el botón de enviar
