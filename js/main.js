@@ -1,5 +1,5 @@
-import { Movimiento} from './movimiento.js';
-import { guardarMovimientos, leerMovimientos } from './storage.js';
+import {Movimiento} from './movimiento.js';
+import {guardarMovimientos, leerMovimientos} from './storage.js';
 
 // Variable global
 const URLMovimientos = "./db/data.json"
@@ -99,7 +99,6 @@ async function cargarMovimientosIniciales() {
             localStorage.setItem("movimientos", JSON.stringify(movimientos));
             return movimientos; // Retorna los movimientos iniciales procesados
         }
-    actualizarListaMovimientos();
     } catch (error) {
         console.error('Error al cargar los movimientos iniciales:', error);
         return;

@@ -12,7 +12,7 @@ export function leerMovimientos(movimientosIniciales) {
         return movimiento;
     });
     // Encontrar el máximo ID existente para evitar conflictos con el contador estático
-    const maxId = Math.max(...movimientos.map(data => parseInt(data.id, 10)), 0);
+    const maxId = Math.max(...movimientosIniciales.map(data => parseInt(data.id, 10)), 0);
     sincronizarContadorMovimiento(maxId);
     return movimientosIniciales; // Retorna los movimientos iniciales procesados
 }
