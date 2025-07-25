@@ -1,7 +1,3 @@
-import {Movimiento} from './movimiento.js';
-import {guardarMovimientos, leerMovimientos} from './storage.js';
-import {movimientosContainer, actualizarListaMovimientos} from './ui.js';
-
 // Variable global
 const URLMovimientos = "./db/data.json"
 let movimientos = [];

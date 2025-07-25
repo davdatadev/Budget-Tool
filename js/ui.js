@@ -1,9 +1,9 @@
-export const movimientosContainer = document.getElementById('movements-list');
+const movimientosContainer = document.getElementById('movements-list');
 const totalIncomeElement = document.getElementById('total-income');
 const totalExpenseElement = document.getElementById('total-expense');
 const netBalanceElement = document.getElementById('net-balance');
 
-export function actualizarListaMovimientos(movimientos) {
+function actualizarListaMovimientos(movimientos) {
     movimientosContainer.innerHTML = ''; 
 
     if (movimientos.length === 0) {
@@ -43,7 +43,7 @@ export function actualizarListaMovimientos(movimientos) {
 }
 
 // Función para actualizar el resumen del balance
-export function updateBalanceSummary(movimientos) {
+function updateBalanceSummary(movimientos) {
     const totalIngresos = movimientos.filter(movimiento => movimiento.tipo === 'Ingreso').reduce((total, movimiento) => total + movimiento.monto, 0);
     const totalGastos = movimientos.filter(movimiento => movimiento.tipo === 'Gasto').reduce((total, movimiento) => total + movimiento.monto, 0);
     const balance = totalIngresos - totalGastos;

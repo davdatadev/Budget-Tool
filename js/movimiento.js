@@ -1,4 +1,4 @@
-export class Movimiento {
+class Movimiento {
     static contadorId = 0;
 
     constructor(tipo, categoria, fechaMovimiento, monto) {
@@ -12,6 +12,6 @@ export class Movimiento {
     }
 }
 
-export function sincronizarContadorMovimiento(maxId) {
+function sincronizarContadorMovimiento(maxId) {
     Movimiento.contadorId = maxId;
 }

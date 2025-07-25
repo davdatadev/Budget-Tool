@@ -1,10 +1,8 @@
-import { Movimiento, sincronizarContadorMovimiento } from './movimiento.js';
-
-export function guardarMovimientos(movimientos) {
+function guardarMovimientos(movimientos) {
   localStorage.setItem('movimientos', JSON.stringify(movimientos));
 }
 
-export function leerMovimientos(movimientosIniciales) {
+function leerMovimientos(movimientosIniciales) {
     movimientosIniciales.map(data => {
         const movimiento = new Movimiento(data.tipo, data.categoria, data.fechaMovimiento, data.monto);
         movimiento.id = data.id;
